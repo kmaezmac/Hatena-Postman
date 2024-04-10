@@ -22,6 +22,10 @@ const postArticle = async () => {
     console.log("こんてんと:" +contents);
 
     const escaped = he.escape(contents);
+    if(!escaped){
+        console.log("空だから失敗")；
+        return;
+    }
     const xmlData = `<?xml version="1.0" encoding="utf-8"?>
     <entry xmlns="http://www.w3.org/2005/Atom">
       <title>${title}</title>
