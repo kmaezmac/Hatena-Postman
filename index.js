@@ -6,7 +6,7 @@ const app = express();
 const https = require('https');
 
 function postArticle() {
-    const url = proces.env.HATENA_URL;
+    const url = process.env.HATENA_URL;
     var today = new Date();
     var year = today.getFullYear();
     var month = ("0" + String(today.getMonth() + 1)).slice(-2);
