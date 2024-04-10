@@ -54,6 +54,12 @@ const postArticle = async () => {
 
 const getFromAmazon = async () => {
     var contents = "";
+    var ads = [
+        process.env.AD_HTML001,
+        process.env.AD_HTML002,
+        process.env.AD_HTML003
+    ];
+
     try {
         const response = await axios.get(process.env.AMAZON_API_URL);
         var body = response.data;
@@ -64,6 +70,8 @@ const getFromAmazon = async () => {
                 var productImage = body[i].image;
                 var productPrice = body[i].price;
                 var productDiscount = body[i].discount;
+
+                var adUrl = ads[Math.floor(Math.random()* ads.length)];
 
                 console.log(productUrl);
                 console.log(productTitle);
@@ -81,7 +89,12 @@ const getFromAmazon = async () => {
                 </div>
                 <div><span style="color: #565959;">価格: </span><span style="color: #b12704;">${productPrice}</span></div>
                 <div><span style="color: #565959;">OFF:</span><span style="color: #b12704;">${productDiscount}</span></div>
-                <p> </p>`;
+                <p> </p>
+                <!-- admax -->
+                <script src=${adUrl}></script>
+                <!-- admax -->
+                <p> </p>
+                `;
             }
         }
     } catch (error) {
