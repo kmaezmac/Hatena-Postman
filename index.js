@@ -3,7 +3,7 @@ const he = require('he');
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const { setTimeout } = require('timers/promises');.
+const { setTimeout } = require('timers/promises');
 
 const postArticle = async () => {
     const url = process.env.HATENA_URL;
