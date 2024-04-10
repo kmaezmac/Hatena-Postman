@@ -47,7 +47,7 @@ const postArticle = async () => {
 
 const getFromAmazon = async () => {
     var contentsText = "";
-    await https.get(process.env.AMAZON_API_URL, (resp) => {
+    https.get(process.env.AMAZON_API_URL, (resp) => {
         let data = '';
         resp.on('data', (chunk) => {
             data += chunk;
