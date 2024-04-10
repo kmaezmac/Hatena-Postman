@@ -3,7 +3,6 @@ const he = require('he');
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const https = require('https');
 
 const postArticle = async () => {
     const url = process.env.HATENA_URL;
@@ -24,9 +23,7 @@ const postArticle = async () => {
         const response = await axios.get(process.env.AMAZON_API_URL);
         var body = response.data;
         if (body.length != 0) {
-            console.log("お");
             for (var i = 0; i < body.length; i++) {
-                console.log("か");
                 var productUrl = body[i].url;
                 var productTitle = body[i].title;
                 var productImage = body[i].image;
@@ -49,11 +46,9 @@ const postArticle = async () => {
                 </div>
                 <div><span style="color: #565959;">価格: </span><span style="color: #b12704;">${productPrice}</span></div>
                 <div><span style="color: #565959;">OFF:</span><span style="color: #b12704;">${productDiscount}</span></div>
-                <p> </p><p> </p>`;
+                <p> </p>`;
             }
         }
-        console.log(response.data.url);
-        console.log(response.data.explanation);
     } catch (error) {
         console.log(error.response.body);
     }
@@ -66,6 +61,14 @@ const postArticle = async () => {
       <title>${title}</title>
       <content>${escaped}</content>
       <updated>${today.toISOString()}</updated>
+      <categories>
+        <category>Amazon</category>
+        <category>セール</category>
+      </categories>
+      <tags>
+      <tag>Amazon</tag>
+      <tag>セール</tag>
+    </tags>
     </entry>`;
 
     await axios.post(url, xmlData, {
