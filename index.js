@@ -17,42 +17,7 @@ const postArticle = async () => {
 
     console.log(title);
 
-    var contents = "";
-
-    try {
-        const response = await axios.get(process.env.AMAZON_API_URL);
-        var body = response.data;
-        if (body.length != 0) {
-            for (var i = 0; i < body.length; i++) {
-                var productUrl = body[i].url;
-                var productTitle = body[i].title;
-                var productImage = body[i].image;
-                var productPrice = body[i].price;
-                var productDiscount = body[i].discount;
-
-                console.log(productUrl);
-                console.log(productTitle);
-                console.log(productImage);
-                console.log(productPrice);
-                console.log(productDiscount);
-
-                contents += `
-                <div class="hatena-asin-detail"><a href="${productUrl}" class="hatena-asin-detail-image-link" target="_blank" rel="noopener"><img src="${productImage}" class="hatena-asin-detail-image" alt="${productTitle}" title="${productTitle}" /></a>
-                <div class="hatena-asin-detail-info">
-                <p class="hatena-asin-detail-title"><a href="${productUrl}" target="_blank" rel="noopener">${productTitle}</a></p>
-                <ul class="hatena-asin-detail-meta">
-                </ul>
-                <a href="${productUrl}" class="asin-detail-buy" target="_blank" rel="noopener">Amazon</a></div>
-                </div>
-                <div><span style="color: #565959;">価格: </span><span style="color: #b12704;">${productPrice}</span></div>
-                <div><span style="color: #565959;">OFF:</span><span style="color: #b12704;">${productDiscount}</span></div>
-                <p> </p>`;
-            }
-        }
-    } catch (error) {
-        console.log(error.response.body);
-    }
-
+    var contents = await getFromAmazon();
     console.log(contents);
 
     const escaped = he.escape(contents);
@@ -86,6 +51,48 @@ const postArticle = async () => {
     }).catch((error) => {
         console.log(error)
     });
+}
+
+const getFromAmazon = async () => {
+    var contents = "";
+    try {
+        const response = await axios.get(process.env.AMAZON_API_URL);
+        var body = response.data;
+        if (body.length != 0) {
+            for (var i = 0; i < body.length; i++) {
+                var productUrl = body[i].url;
+                var productTitle = body[i].title;
+                var productImage = body[i].image;
+                var productPrice = body[i].price;
+                var productDiscount = body[i].discount;
+
+                console.log(productUrl);
+                console.log(productTitle);
+                console.log(productImage);
+                console.log(productPrice);
+                console.log(productDiscount);
+
+                contents += `
+                <div class="hatena-asin-detail"><a href="${productUrl}" class="hatena-asin-detail-image-link" target="_blank" rel="noopener"><img src="${productImage}" class="hatena-asin-detail-image" alt="${productTitle}" title="${productTitle}" /></a>
+                <div class="hatena-asin-detail-info">
+                <p class="hatena-asin-detail-title"><a href="${productUrl}" target="_blank" rel="noopener">${productTitle}</a></p>
+                <ul class="hatena-asin-detail-meta">
+                </ul>
+                <a href="${productUrl}" class="asin-detail-buy" target="_blank" rel="noopener">Amazon</a></div>
+                </div>
+                <div><span style="color: #565959;">価格: </span><span style="color: #b12704;">${productPrice}</span></div>
+                <div><span style="color: #565959;">OFF:</span><span style="color: #b12704;">${productDiscount}</span></div>
+                <p> </p>`;
+            }
+        }
+    } catch (error) {
+        console.log(error.response.body);
+    }
+    if (contents == "") {
+        await getFromAmazon();
+    }
+    return contents;
+
 }
 
 
