@@ -18,7 +18,7 @@ const postArticle = async () => {
     console.log(title);
 
     var contents = await getFromAmazon();
-    console.log(contents);
+    console.log("こんてんと:" +contents);
 
     const escaped = he.escape(contents);
     const xmlData = `<?xml version="1.0" encoding="utf-8"?>
@@ -86,7 +86,6 @@ const getFromAmazon = async () => {
         await getFromAmazon();
     }
     return contents;
-
 }
 
 
