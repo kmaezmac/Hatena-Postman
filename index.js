@@ -7,7 +7,7 @@ const https = require('https');
 
 const postArticle = async() =>{
     const url = process.env.HATENA_URL;
-    var today = new Date();
+    var today = new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' }));
     var year = today.getFullYear();
     var month = ("0" + String(today.getMonth() + 1)).slice(-2);
     var day = ("0" + String(today.getDate())).slice(-2);
