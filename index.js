@@ -64,14 +64,12 @@ const getFromAmazon = async() => {
                 var productUrl = body[i].url;
                 var productTitle = body[i].title;
                 var productImage = body[i].image;
-                var productMaker = body[i].maker;
                 var productPrice = body[i].price;
                 var productDiscount = body[i].discount;
 
                 console.log(productUrl);
                 console.log(productTitle);
                 console.log(productImage);
-                console.log(productMaker);
                 console.log(productPrice);
                 console.log(productDiscount);
 
@@ -80,7 +78,6 @@ const getFromAmazon = async() => {
                 <div class="hatena-asin-detail-info">
                 <p class="hatena-asin-detail-title"><a href="${productUrl}" target="_blank" rel="noopener">${productTitle}</a></p>
                 <ul class="hatena-asin-detail-meta">
-                <li>${productMaker}</li>
                 </ul>
                 <a href="${productUrl}" class="asin-detail-buy" target="_blank" rel="noopener">Amazon</a></div>
                 </div>
