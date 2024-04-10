@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 const https = require('https');
 
-const postArticle = async() =>{
+const postArticle = async () => {
     const url = process.env.HATENA_URL;
     var today = new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' }));
     var year = today.getFullYear();
@@ -45,7 +45,7 @@ const postArticle = async() =>{
     });
 }
 
-const getFromAmazon = async() => {
+const getFromAmazon = async () => {
     var contentsText = "";
     await https.get(process.env.AMAZON_API_URL, (resp) => {
         let data = '';
@@ -57,23 +57,21 @@ const getFromAmazon = async() => {
             var body = JSON.parse(data)
             console.log(body);
             console.log(body.length);
-            if (body.length == 0) {
-                return;
-            }
-            for (var i = 0; i < body.length; i++) {
-                var productUrl = body[i].url;
-                var productTitle = body[i].title;
-                var productImage = body[i].image;
-                var productPrice = body[i].price;
-                var productDiscount = body[i].discount;
+            if (body.length != 0) {
+                for (var i = 0; i < body.length; i++) {
+                    var productUrl = body[i].url;
+                    var productTitle = body[i].title;
+                    var productImage = body[i].image;
+                    var productPrice = body[i].price;
+                    var productDiscount = body[i].discount;
 
-                console.log(productUrl);
-                console.log(productTitle);
-                console.log(productImage);
-                console.log(productPrice);
-                console.log(productDiscount);
+                    console.log(productUrl);
+                    console.log(productTitle);
+                    console.log(productImage);
+                    console.log(productPrice);
+                    console.log(productDiscount);
 
-                contentsText += `
+                    contentsText += `
                 <div class="hatena-asin-detail"><a href="${productUrl}" class="hatena-asin-detail-image-link" target="_blank" rel="noopener"><img src="${productImage}" class="hatena-asin-detail-image" alt="${productTitle}" title="${productTitle}" /></a>
                 <div class="hatena-asin-detail-info">
                 <p class="hatena-asin-detail-title"><a href="${productUrl}" target="_blank" rel="noopener">${productTitle}</a></p>
@@ -84,6 +82,7 @@ const getFromAmazon = async() => {
                 <div><span style="color: #565959;">価格: </span><span style="color: #b12704;">${productPrice}</span></div>
                 <div><span style="color: #565959;">OFF:</span><span style="color: #b12704;">${productDiscount}</span></div>
                 <p> </p><p> </p>`;
+                }
             }
 
         });
@@ -92,7 +91,7 @@ const getFromAmazon = async() => {
         console.log("Error: " + err.message);
     })
     if (contentsText == "") {
-       await getFromAmazon();
+        await getFromAmazon();
     }
     return contentsText;
 }
