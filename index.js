@@ -3,6 +3,7 @@ const he = require('he');
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const { setTimeout } = require('timers/promises');.
 
 const postArticle = async () => {
     const url = process.env.HATENA_URL;
@@ -82,7 +83,8 @@ const getFromAmazon = async () => {
     } catch (error) {
         console.log(error.response.body);
     }
-    if (contents == "") {
+    await setTimeout(10000);
+    if (!contents) {
         await getFromAmazon();
     }
     return contents;
