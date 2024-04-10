@@ -26,14 +26,8 @@ const postArticle = async () => {
       <title>${title}</title>
       <content>${escaped}</content>
       <updated>${today.toISOString()}</updated>
-      <categories>
-        <category>Amazon</category>
-        <category>セール</category>
-      </categories>
-      <tags>
-      <tag>Amazon</tag>
-      <tag>セール</tag>
-    </tags>
+      <category term="Amazon" />
+      <category term="セール" />
     </entry>`;
 
     await axios.post(url, xmlData, {
