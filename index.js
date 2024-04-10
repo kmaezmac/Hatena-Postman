@@ -17,7 +17,7 @@ const postArticle = async () => {
     var title = "Amazonタイムセール " + year + "/" + month + "/" + day + " " + hour + ":" + minutes + "更新";
 
     console.log(title);
-    var contents = await getFromAmazon();
+    var contents = getFromAmazon();
     console.log(contents);
 
     const escaped = he.escape(contents);
@@ -47,18 +47,23 @@ const postArticle = async () => {
 
 const getFromAmazon = async () => {
     var contentsText = "";
+    console.log("あ");
     https.get(process.env.AMAZON_API_URL, (resp) => {
         let data = '';
         resp.on('data', (chunk) => {
             data += chunk;
+            console.log("い");
         });
-
+        console.log("う");
         resp.on('end', () => {
             var body = JSON.parse(data)
             console.log(body);
             console.log(body.length);
+            console.log("え");
             if (body.length != 0) {
+                console.log("お");
                 for (var i = 0; i < body.length; i++) {
+                    console.log("か");
                     var productUrl = body[i].url;
                     var productTitle = body[i].title;
                     var productImage = body[i].image;
@@ -91,7 +96,7 @@ const getFromAmazon = async () => {
         console.log("Error: " + err.message);
     })
     if (contentsText == "") {
-        await getFromAmazon();
+        getFromAmazon();
     }
     return contentsText;
 }
