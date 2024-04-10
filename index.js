@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 const https = require('https');
 
-function postArticle() {
+const postArticle = async() =>{
     const url = process.env.HATENA_URL;
     var today = new Date();
     var year = today.getFullYear();
@@ -16,7 +16,9 @@ function postArticle() {
 
     var title = "Amazonタイムセール " + year + "/" + month + "/" + day + " " + hour + ":" + minutes + "更新";
 
-    var contents = getFromAmazon();
+    console.log(title);
+    var contents = await getFromAmazon();
+    console.log(contents);
 
     const escaped = he.escape(contents);
     const xmlData = `<?xml version="1.0" encoding="utf-8"?>
@@ -26,7 +28,7 @@ function postArticle() {
       <updated>${today.toISOString()}</updated>
     </entry>`;
 
-    axios.post(url, xmlData, {
+    await axios.post(url, xmlData, {
         headers: {
             'Content-Type': 'application/xml',
         },
@@ -43,9 +45,9 @@ function postArticle() {
     });
 }
 
-function getFromAmazon() {
+const getFromAmazon = async() => {
     var contentsText = "";
-    https.get(process.env.AMAZON_API_URL, (resp) => {
+    await https.get(process.env.AMAZON_API_URL, (resp) => {
         let data = '';
         resp.on('data', (chunk) => {
             data += chunk;
@@ -56,7 +58,7 @@ function getFromAmazon() {
             console.log(body);
             console.log(body.length);
             if (body.length == 0) {
-                getFromAmazon();
+                return;
             }
             for (var i = 0; i < body.length; i++) {
                 var productUrl = body[i].url;
@@ -93,7 +95,7 @@ function getFromAmazon() {
         console.log("Error: " + err.message);
     })
     if (contentsText == "") {
-        getFromAmazon();
+       await getFromAmazon();
     }
     return contentsText;
 }
