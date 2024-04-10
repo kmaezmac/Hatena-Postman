@@ -23,7 +23,7 @@ const postArticle = async () => {
 
     const escaped = he.escape(contents);
     if(!escaped){
-        console.log("空だから失敗")；
+        console.log("空だから失敗");
         return;
     }
     const xmlData = `<?xml version="1.0" encoding="utf-8"?>
