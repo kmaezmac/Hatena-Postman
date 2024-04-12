@@ -30,7 +30,7 @@ const postArticle = async () => {
     <entry xmlns="http://www.w3.org/2005/Atom">
       <title>${title}</title>
       <content>${escaped}</content>
-      <updated>${today.toISOString()}</updated>
+      <updated>${today.toDateString()}</updated>
       <category term="Amazon" />
       <category term="セール" />
     </entry>`;
