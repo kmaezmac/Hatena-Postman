@@ -188,11 +188,11 @@ const getFromRakuten = async () => {
                 console.log(affiliateUrl);
                 console.log(itemName);
                 console.log(itemPrice);
-                console.log("イメージURL " + imageUrls[0]);
+                var imageUrl = imageUrls[i].imageUrl.substring(0, imageUrls[i].imageUrl.indexOf("?"));
 
                 var adUrl = ads[Math.floor(Math.random()* ads.length)];
                 
-                contents += `<div class="hatena-asin-detail"><a href="${affiliateUrl}" class="hatena-asin-detail-image-link" target="_blank" rel="noopener"><img src="${imageUrls[0]}" class="hatena-asin-detail-image" alt="${itemName}" title="${itemName}" /></a>
+                contents += `<div class="hatena-asin-detail"><a href="${affiliateUrl}" class="hatena-asin-detail-image-link" target="_blank" rel="noopener"><img src="${imageUrl}" class="hatena-asin-detail-image" alt="${itemName}" title="${itemName}" /></a>
                 <div class="hatena-asin-detail-info">
                 <p class="hatena-asin-detail-title"><a href="${affiliateUrl}" target="_blank" rel="noopener">${itemName}</a></p>
                 <ul class="hatena-asin-detail-meta">
