@@ -177,8 +177,8 @@ const getFromRakuten = async () => {
 
     try {
         const response = await axios.get(rakutenRankingUrl);
-        if (response.data.Item.length != 0) {
-            for (var i = 0; i < response.data.Item.length; i++) {
+        if (response.data.Items.length != 0) {
+            for (var i = 0; i < response.data.Items.length; i++) {
                 var catchcopy = response.data.Items[random].Item.catchcopy;
                 var imageUrls = response.data.Items[random].Item.mediumImageUrls;
                 var affiliateUrl = response.data.Items[random].Item.affiliateUrl;
@@ -188,6 +188,8 @@ const getFromRakuten = async () => {
                 console.log(affiliateUrl);
                 console.log(itemName);
                 console.log(itemPrice);
+
+                var adUrl = ads[Math.floor(Math.random()* ads.length)];
                 
                 contents += `<div class="hatena-asin-detail"><a href="${affiliateUrl}" class="hatena-asin-detail-image-link" target="_blank" rel="noopener"><img src="${imageUrls[0]}" class="hatena-asin-detail-image" alt="${itemName}" title="${itemName}" /></a>
                 <div class="hatena-asin-detail-info">
@@ -199,14 +201,14 @@ const getFromRakuten = async () => {
                 <div><span style="color: #565959;">価格: </span><span style="color: #b12704;">${itemPrice}</span></div>
                 <p> </p>
                 <!-- admax -->
-                <script src=${affiliateUrl}></script>
+                <script src=${adUrl}></script>
                 <!-- admax -->
                 <p> </p>
                 `;                
             }
         }
     } catch (error) {
-        console.log(error.response.body);
+        console.log(error.response);
     }
     await setTimeout(10000);
     if (!contents) {
