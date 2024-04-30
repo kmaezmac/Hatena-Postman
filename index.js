@@ -179,11 +179,11 @@ const getFromRakuten = async () => {
         const response = await axios.get(rakutenRankingUrl);
         if (response.data.Items.length != 0) {
             for (var i = 0; i < response.data.Items.length; i++) {
-                var catchcopy = response.data.Items[random].Item.catchcopy;
-                var imageUrls = response.data.Items[random].Item.mediumImageUrls;
-                var affiliateUrl = response.data.Items[random].Item.affiliateUrl;
-                var itemName = response.data.Items[random].Item.itemName;
-                var itemPrice = response.data.Items[random].Item.itemPrice;
+                var catchcopy = response.data.Items[i].Item.catchcopy;
+                var imageUrls = response.data.Items[i].Item.mediumImageUrls;
+                var affiliateUrl = response.data.Items[i].Item.affiliateUrl;
+                var itemName = response.data.Items[i].Item.itemName;
+                var itemPrice = response.data.Items[i].Item.itemPrice;
                 console.log(catchcopy);
                 console.log(affiliateUrl);
                 console.log(itemName);
