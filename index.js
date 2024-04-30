@@ -179,6 +179,7 @@ const getFromRakuten = async () => {
         const response = await axios.get(rakutenRankingUrl);
         if (response.data.Items.length != 0) {
             for (var i = 0; i < response.data.Items.length; i++) {
+                
                 var catchcopy = response.data.Items[i].Item.catchcopy;
                 var imageUrls = response.data.Items[i].Item.mediumImageUrls;
                 var affiliateUrl = response.data.Items[i].Item.affiliateUrl;
@@ -188,15 +189,17 @@ const getFromRakuten = async () => {
                 console.log(affiliateUrl);
                 console.log(itemName);
                 console.log(itemPrice);
+                console.log("イメージurl " + imageUrls[0]);
 
                 var adUrl = ads[Math.floor(Math.random()* ads.length)];
                 
-                contents += `<div class="hatena-asin-detail"><a href="${affiliateUrl}" class="hatena-asin-detail-image-link" target="_blank" rel="noopener"><img src="${imageUrls[0]}" class="hatena-asin-detail-image" alt="${itemName}" title="${itemName}" /></a>
+                contents += `<a href="${affiliateUrl}">
+                <img src="${imageUrls[0]}" class="hatena-asin-detail-image" alt="${itemName}" title="${itemName}" /></a>
                 <div class="hatena-asin-detail-info">
                 <p class="hatena-asin-detail-title"><a href="${affiliateUrl}" target="_blank" rel="noopener">${itemName}</a></p>
                 <ul class="hatena-asin-detail-meta">
                 </ul>
-                <a href="${affiliateUrl}" class="asin-detail-buy" target="_blank" rel="noopener">Amazon</a></div>
+                <a href="${affiliateUrl}" class="asin-detail-buy" target="_blank" rel="noopener">楽天</a></div>
                 </div>
                 <div><span style="color: #565959;">価格: </span><span style="color: #b12704;">${itemPrice}</span></div>
                 <p> </p>
