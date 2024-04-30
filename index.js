@@ -173,7 +173,7 @@ const getFromRakuten = async () => {
         process.env.AD_HTML003
     ];
     var rakutenRankingUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Ranking/20220601?applicationId="
-        + process.env.RAKUTEN_APP_ID + "&sex=1&carrier=1&page=34&affiliateId=" + process.env.RAKUTEN_AFFILIATE_ID;
+        + process.env.RAKUTEN_APP_ID + "&sex=1&carrier=1&page=1&affiliateId=" + process.env.RAKUTEN_AFFILIATE_ID;
 
     try {
         const response = await axios.get(rakutenRankingUrl);
