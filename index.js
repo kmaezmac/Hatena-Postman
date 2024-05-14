@@ -170,7 +170,28 @@ const getFromRakuten = async () => {
     var ads = [
         process.env.AD_HTML001,
         process.env.AD_HTML002,
-        process.env.AD_HTML003
+        process.env.AD_HTML003,
+        process.env.AD_HTML004,
+        process.env.AD_HTML005,
+        process.env.AD_HTML006,
+        process.env.AD_HTML007,
+        process.env.AD_HTML008,
+        process.env.AD_HTML009,
+        process.env.AD_HTML010,
+        process.env.AD_HTML011,
+        process.env.AD_HTML012,
+        process.env.AD_HTML013,
+        process.env.AD_HTML014,
+        process.env.AD_HTML015,
+        process.env.AD_HTML016,
+        process.env.AD_HTML017,
+        process.env.AD_HTML018,
+        process.env.AD_HTML019,
+        process.env.AD_HTML020,
+        process.env.AD_HTML021,
+        process.env.AD_HTML022,
+        process.env.AD_HTML023,
+        process.env.AD_HTML024,
     ];
     var random = Math.floor(Math.random() * 34) + 1;
     var rakutenRankingUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Ranking/20220601?applicationId="
@@ -191,7 +212,7 @@ const getFromRakuten = async () => {
                 console.log(itemPrice);
                 var imageUrl = imageUrls[i].imageUrl.substring(0, imageUrls[i].imageUrl.indexOf("?"));
 
-                var adUrl = ads[Math.floor(Math.random()* ads.length)];
+                var adScript = ads[Math.floor(Math.random()* ads.length)];
                 
                 contents += `<div class="hatena-asin-detail"><a href="${affiliateUrl}" class="hatena-asin-detail-image-link" target="_blank" rel="noopener"><img src="${imageUrl}" class="hatena-asin-detail-image" alt="${itemName}" title="${itemName}" /></a>
                 <div class="hatena-asin-detail-info">
@@ -202,9 +223,7 @@ const getFromRakuten = async () => {
                 </div>
                 <div><span style="color: #565959;">価格: </span><span style="color: #b12704;">${itemPrice}</span></div>
                 <p> </p>
-                <!-- admax -->
-                <script src=${adUrl}></script>
-                <!-- admax -->
+                ${adScript}
                 <p> </p>
                 `;                
             }
