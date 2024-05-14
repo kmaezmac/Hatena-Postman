@@ -5,6 +5,35 @@ const express = require('express');
 const app = express();
 const { setTimeout } = require('timers/promises');
 
+const ads = [
+    process.env.AD_HTML001,
+    process.env.AD_HTML002,
+    process.env.AD_HTML003,
+    process.env.AD_HTML004,
+    process.env.AD_HTML005,
+    process.env.AD_HTML006,
+    process.env.AD_HTML007,
+    process.env.AD_HTML008,
+    process.env.AD_HTML009,
+    process.env.AD_HTML010,
+    process.env.AD_HTML011,
+    process.env.AD_HTML012,
+    process.env.AD_HTML013,
+    process.env.AD_HTML014,
+    process.env.AD_HTML015,
+    process.env.AD_HTML016,
+    process.env.AD_HTML017,
+    process.env.AD_HTML018,
+    process.env.AD_HTML019,
+    process.env.AD_HTML020,
+    process.env.AD_HTML021,
+    process.env.AD_HTML022,
+    process.env.AD_HTML023,
+    process.env.AD_HTML024,
+    process.env.AD_HTML025,
+    process.env.AD_HTML026,
+];
+
 const postArticleForAmazon = async () => {
     const url = process.env.HATENA_URL;
     var today = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
@@ -54,12 +83,6 @@ const postArticleForAmazon = async () => {
 
 const getFromAmazon = async () => {
     var contents = "";
-    var ads = [
-        process.env.AD_HTML001,
-        process.env.AD_HTML002,
-        process.env.AD_HTML003
-    ];
-
     try {
         const response = await axios.get(process.env.AMAZON_API_URL);
         var body = response.data;
@@ -70,8 +93,7 @@ const getFromAmazon = async () => {
                 var productImage = body[i].image;
                 var productPrice = body[i].price;
                 var productDiscount = body[i].discount;
-
-                var adUrl = ads[Math.floor(Math.random()* ads.length)];
+                var adScript = ads[Math.floor(Math.random()* ads.length)];
 
                 console.log(productUrl);
                 console.log(productTitle);
@@ -90,9 +112,7 @@ const getFromAmazon = async () => {
                 <div><span style="color: #565959;">価格: </span><span style="color: #b12704;">${productPrice}</span></div>
                 <div><span style="color: #565959;">OFF:</span><span style="color: #b12704;">${productDiscount}</span></div>
                 <p> </p>
-                <!-- admax -->
-                <script src=${adUrl}></script>
-                <!-- admax -->
+                ${adScript}
                 <p> </p>
                 `;
             }
@@ -167,34 +187,7 @@ const postArticleForRakuten = async () => {
 
 const getFromRakuten = async () => {
     var contents = "";
-    var ads = [
-        process.env.AD_HTML001,
-        process.env.AD_HTML002,
-        process.env.AD_HTML003,
-        process.env.AD_HTML004,
-        process.env.AD_HTML005,
-        process.env.AD_HTML006,
-        process.env.AD_HTML007,
-        process.env.AD_HTML008,
-        process.env.AD_HTML009,
-        process.env.AD_HTML010,
-        process.env.AD_HTML011,
-        process.env.AD_HTML012,
-        process.env.AD_HTML013,
-        process.env.AD_HTML014,
-        process.env.AD_HTML015,
-        process.env.AD_HTML016,
-        process.env.AD_HTML017,
-        process.env.AD_HTML018,
-        process.env.AD_HTML019,
-        process.env.AD_HTML020,
-        process.env.AD_HTML021,
-        process.env.AD_HTML022,
-        process.env.AD_HTML023,
-        process.env.AD_HTML024,
-        process.env.AD_HTML025,
-        process.env.AD_HTML026,
-    ];
+   
     var random = Math.floor(Math.random() * 34) + 1;
     var rakutenRankingUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Ranking/20220601?applicationId="
         + process.env.RAKUTEN_APP_ID + "&sex=1&carrier=0&page=" + random + "&affiliateId=" + process.env.RAKUTEN_AFFILIATE_ID;
