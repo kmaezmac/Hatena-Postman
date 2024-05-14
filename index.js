@@ -193,6 +193,7 @@ const getFromRakuten = async () => {
         process.env.AD_HTML023,
         process.env.AD_HTML024,
         process.env.AD_HTML025,
+        process.env.AD_HTML026,
     ];
     var random = Math.floor(Math.random() * 34) + 1;
     var rakutenRankingUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Ranking/20220601?applicationId="
